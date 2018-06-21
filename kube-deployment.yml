@@ -71,6 +71,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: web
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: wordsmith.aws-0080.cloudfirst.digital
   labels:
     app: words-web
 spec:
@@ -100,3 +102,16 @@ spec:
         ports:
         - containerPort: 80
           name: words-web
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: thomas-wordsmith-ingress
+spec:
+  rules:
+  - host: wordsmith.aws-0080.cloudfirst.digital
+    http:
+      paths:
+      - backend:
+          serviceName: web
+          servicePort: 8081
