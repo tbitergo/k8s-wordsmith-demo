@@ -1,0 +1,12 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: thomas-wordsmith-ingress
+spec:
+  rules:
+  - host: wordsmith.aws-0080.cloudfirst.digital
+    http:
+      paths:
+      - backend:
+          serviceName: web
+          servicePort: 8081
